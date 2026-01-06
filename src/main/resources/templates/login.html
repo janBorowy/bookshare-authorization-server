@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://thymeleaf.org">
+<head>
+	<title>Bookshare Authorization Service</title>
+	<link rel="stylesheet" href="/public/index.css">
+</head>
+<body>
+<div class="mainColumContainer">
+	<main class="mainContentContainer">
+		<a href="/">
+			<div class="headerContainer">
+				<img
+						class="logo"
+						th:src="@{/public/images/oauthLogo.webp}"
+						alt="oauth2 logo"/>
+			<h1 class="headerText">
+				Bookshare authorization service</h1>
+			</div>
+		</a>
+
+		<div class="loginErrorBox" th:if="${isLoginError} == true">
+			Could not login, check if specified credentials are correct
+		</div>
+
+		<form class="requestForm"
+			  method="post"
+			  th:action="@{/login}">
+			<label for="email-input" hidden="hidden">Email: </label>
+			<input id="email-input" name="username" placeholder="email" type="email" required autofocus/>
+			<label for="password-input" hidden="hidden">Password: </label>
+			<input id="password-input" name="password" placeholder="password" type="password" required/>
+			<button type="submit">Log in</button>
+		</form>
+
+		<p class="registerHereText">Haven't signed up yet?
+			<a class="linkText" href="/register">Register here!</a>
+		</p>
+	</main>
+</div>
+</body>
+</html>

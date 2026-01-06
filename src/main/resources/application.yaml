@@ -1,0 +1,38 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    org.springframework.security: trace
+
+spring:
+  application:
+    name: bookshare-authorization-server
+
+  data:
+
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          public-client:
+            registration:
+              client-id: "bookshare-web-client"
+              client-secret: "bookshare-web-client-secret" # TODO: change this
+              client-authentication-methods:
+                - "none"
+              authorization-grant-types:
+                - "authorization_code"
+              redirect-uris:
+                - "http://127.0.0.1:3000/callback"
+              scopes:
+                - "books"
+                - "profile"
+            require-authorization-consent: true
+            require-proof-key: true
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bookshare
+    password: root
+    username: root

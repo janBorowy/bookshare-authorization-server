@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    background-color: gray;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.headerText {
+    text-align: center;
+}
+
+.logo {
+    aspect-ratio: auto;
+    height: 5rem;
+}
+
+.headerContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem 0 1rem;
+}
+
+.mainContentContainer {
+    background-color: lightgray;
+    width: fit-content;
+    padding: 1rem 1rem;
+    border-radius: 10px;
+}
+
+.mainColumContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.requestForm {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0.5em 1em;
+    gap: 0.5em;
+}
+
+.requestForm input[type=text], .requestForm input[type=password], .requestForm input[type=email] {
+    padding: 0.25rem 0.5rem;
+}
+
+.requestForm button[type=submit] {
+    background-color: darkgrey;
+}
+
+.loginErrorBox {
+    border-radius: 10px;
+    background-color: palevioletred;
+    padding: 0.25rem 1rem;
+}
+
+.registerHereText {
+    text-align: center;
+}
+
+.signUpText {
+    text-align: center;
+}
+
+.registrationFormHeader {
+    text-align: center;
+}
+
+.usernameText {
+    color: darkblue;
+}
+
+.linkText {
+    color: blue;
+}
+
+.linkText:hover {
+    text-decoration: underline;
+}
+
+.loggedInAsContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}

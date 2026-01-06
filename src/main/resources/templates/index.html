@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="https://thymeleaf.org">
+<head>
+	<title>Bookshare Authorization Service</title>
+	<link rel="stylesheet" href="/public/index.css">
+</head>
+<body>
+<div class="mainColumContainer">
+	<main class="mainContentContainer">
+		<a href="/">
+			<div class="headerContainer">
+				<img
+						class="logo"
+						th:src="@{/public/images/oauthLogo.webp}"
+						alt="oauth2 logo"/>
+				<h1 class="headerText">
+					Bookshare authorization service</h1>
+			</div>
+		</a>
+
+		<div class="loggedInAsContainer">
+			<p>
+				You're logged in as <span class="usernameText" th:text="${user.getUsername()}"></span>
+			</p>
+			<form method="post" th:action="@{/logout}">
+				<button>Log out</button>
+			</form>
+		</div>
+	</main>
+</div>
+</body>
+</html>
