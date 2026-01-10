@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -25,6 +26,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+        var authorizationServerConfigurer = OAuth2AuthorizationServerConfigurer.authorizationServer();
         return http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
@@ -43,6 +45,8 @@ public class SecurityConfiguration {
                 })
                 .logout(Customizer.withDefaults())
 //                .oauth2AuthorizationServer(Customizer.withDefaults())
+                .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
+                .with(authorizationServerConfigurer, Customizer.withDefaults())
                 .build();
     }
 

@@ -1,6 +1,3 @@
-drop table user_role;
-drop table user;
-
 create table user
 (
     id               serial primary key,

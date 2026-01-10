@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: file:${user.dir}/data/schema.sql

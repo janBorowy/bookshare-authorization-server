@@ -33,9 +33,15 @@ dependencies {
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
     implementation("org.apache.commons:commons-lang3:${apacheCommonsVersion}")
     runtimeOnly("com.mysql:mysql-connector-j")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("org.testcontainers:mysql")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
