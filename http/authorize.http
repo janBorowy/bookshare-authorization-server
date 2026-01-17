@@ -1,1 +1,20 @@
-GET http://localhost:9000/oauth2/authorize?response_type=code&client_id=public-client&redirect_uri=http://127.0.0.1:4200&scope=books&code_challenge=xdddddddddddd&code_challenge_method=S256
+< {%
+    const code = "MI8zbfLszq3JcUqTil0f8LQWDdJIsudHLFQGwEONfzbai5tdNFqoCD0FyhRtfEoonRizC_pahQm3R-AadjThTmqIYTp9BN7pGqUF9mSWNNn4qhf__AYT-MANio8iQpTo"
+    const redirect_uri = "http://127.0.0.1:3000/authorizationCallback"
+    const auth = Window.btoa('bookshare-web-client:bookshare-web-client-secret') ;
+    request.variables.set("auth", auth);
+    request.variables.set("code", code);
+    request.variables.set("redirect_uri", redirect_uri);
+%}
+POST {{url}}/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {{auth}}
+
+code = {{code}} &
+grant_type = authorization_code &
+redirect_uri = {{redirect_uri}} &
+code_verifier = secret_challenge
+
+> {%
+    client.global.set("access_token", response.body["access_token"])
+%}

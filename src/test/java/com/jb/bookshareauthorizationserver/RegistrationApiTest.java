@@ -2,7 +2,6 @@ package com.jb.bookshareauthorizationserver;
 
 import com.jb.bookshareauthorizationserver.data.entity.UserEntity;
 import com.jb.bookshareauthorizationserver.data.repository.UserRepository;
-import com.jb.bookshareauthorizationserver.model.UserRegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,10 +9,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.jb.bookshareauthorizationserver.JacksonTest.OBJECT_MAPPER;
+import java.util.Objects;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -36,38 +35,49 @@ class RegistrationApiTest {
 
     @Test
     void userRegisterSuccess() throws Exception {
-        var request = UserRegisterRequest.builder()
-                .username("test username")
-                .email("test@mail.com")
-                .plainPassword("test password")
-                .build();
         mvc.perform(post(getFullUrl("/register"))
                         .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(OBJECT_MAPPER.writeValueAsString(request)))
+                        .param("username", "test username")
+                        .param("email", "test@mail.com")
+                        .param("plainPassword", "testPassword"))
                 .andExpect(status().is3xxRedirection());
 
         assertThat(userRepository.findByEmail("test@mail.com"))
-                .isNotEmpty()
                 .get()
                 .doesNotMatch(UserEntity::isDisabled);
     }
 
     @Test
     void userRegisterBadRequest() throws Exception {
-        var request = UserRegisterRequest.builder()
-                .username("test")
-                .email("test@mail.com")
-                .plainPassword("test password")
-                .build();
         mvc.perform(post(getFullUrl("/register"))
                         .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(OBJECT_MAPPER.writeValueAsString(request)))
+                        .param("username", "test")
+                        .param("email", "test")
+                        .param("plainPassword", "test password"))
                 .andExpect(status().isBadRequest());
 
         assertThat(userRepository.findByEmail("test@mail.com"))
                 .isEmpty();
+    }
+
+    @Test
+    void userWithSameEmailAlreadyExists() throws Exception {
+        userRepository.save(UserEntity.builder()
+                .username("iAlreadyExist")
+                .email("alreadyExists@mail.com")
+                .encodedPassword("somePassword")
+                .build());
+
+        mvc.perform(post(getFullUrl("/register"))
+                        .with(csrf())
+                        .param("username", "iWannaMakeNewAccount")
+                        .param("email", "alreadyExists@mail.com")
+                        .param("plainPassword", "myNewPassword"))
+                .andExpect(status().isBadRequest());
+
+        assertThat(userRepository.findByEmail("alreadyExists@mail.com"))
+                .get()
+                .matches(it -> Objects.equals(it.getUsername(), "iAlreadyExist"));
     }
 
     private String getFullUrl(String path) {

@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 public class UserRegisterRequest {
 
     @NotBlank
-    @Length(min = 8, max = 100)
+    @Length(min = 3, max = 100)
     String username;
 
     @NotBlank
