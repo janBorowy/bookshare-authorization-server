@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "user")
 @Builder
@@ -22,4 +24,7 @@ public class UserEntity {
     private String email;
     private String encodedPassword;
     private boolean disabled;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserRoleEntity> roles;
 }

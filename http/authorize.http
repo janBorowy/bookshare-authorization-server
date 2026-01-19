@@ -1,5 +1,5 @@
 < {%
-    const code = "MI8zbfLszq3JcUqTil0f8LQWDdJIsudHLFQGwEONfzbai5tdNFqoCD0FyhRtfEoonRizC_pahQm3R-AadjThTmqIYTp9BN7pGqUF9mSWNNn4qhf__AYT-MANio8iQpTo"
+    const code = "eWUGHs26D_l4IOe3T40h4qGsjVptqZ5LsCoUobkaNelAKd8oNC_hNKzz5FWDVBHwUWv4zoOU7bUh4uxynEx5McKVGChZVIJjFmhQHHE084iliSEo4aBh8sbLdVFRwU6f"
     const redirect_uri = "http://127.0.0.1:3000/authorizationCallback"
     const auth = Window.btoa('bookshare-web-client:bookshare-web-client-secret') ;
     request.variables.set("auth", auth);
