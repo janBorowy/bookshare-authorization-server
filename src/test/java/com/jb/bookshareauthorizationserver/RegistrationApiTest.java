@@ -51,7 +51,7 @@ class RegistrationApiTest {
     void userRegisterBadRequest() throws Exception {
         mvc.perform(post(getFullUrl("/register"))
                         .with(csrf())
-                        .param("username", "test")
+                        .param("username", "testtest")
                         .param("email", "test")
                         .param("plainPassword", "test password"))
                 .andExpect(status().isBadRequest());

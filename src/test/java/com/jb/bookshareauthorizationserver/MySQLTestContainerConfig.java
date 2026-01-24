@@ -14,7 +14,7 @@ public class MySQLTestContainerConfig {
 
     @Container
     private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>(DockerImageName.parse("mysql:5.7.34"))
-            .withDatabaseName("bookshare");
+            .withDatabaseName("bookshare-authorization");
 
     @Bean
     @ServiceConnection

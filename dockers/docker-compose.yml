@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     ports:
       - '3306:3306'
-    restart: always
+    restart: on-failure
     environment:
       MYSQL_DATABASE: bookshare-authorization
       MYSQL_ROOT_PASSWORD: root
