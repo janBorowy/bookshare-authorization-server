@@ -1,5 +1,6 @@
-package com.jb.bookshareauthorizationserver;
+package com.jb.bookshareauthorizationserver.integration;
 
+import com.jb.bookshareauthorizationserver.MySQLTestContainerConfig;
 import com.jb.bookshareauthorizationserver.data.entity.UserEntity;
 import com.jb.bookshareauthorizationserver.data.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @AutoConfigureMockMvc
 @Import(MySQLTestContainerConfig.class)
-class RegistrationApiTest {
+class RegistrationTest {
 
     @LocalServerPort
     private Integer port;

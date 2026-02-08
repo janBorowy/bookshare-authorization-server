@@ -3,7 +3,7 @@ server:
 
 keyPath:
   auth-server-public-key-file-path: test_public_key.der
-  auth-server-private-key-file-path:  test_private_key.der
+  auth-server-private-key-file-path: test_private_key.der
 
 logging:
   level:

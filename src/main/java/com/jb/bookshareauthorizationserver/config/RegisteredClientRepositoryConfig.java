@@ -8,7 +8,9 @@ import org.springframework.security.oauth2.server.authorization.client.InMemoryR
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +19,7 @@ public class RegisteredClientRepositoryConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
+        // TODO: register client some other way
         var clients = List.of(
                 RegisteredClient.withId(UUID.randomUUID().toString())
                         .clientId("bookshare-web-client")
@@ -27,6 +30,11 @@ public class RegisteredClientRepositoryConfig {
                         .scope("bookshare-web")
                         .clientSettings(ClientSettings.builder()
                                 .requireProofKey(true)
+                                .build())
+                        .tokenSettings(TokenSettings.builder()
+                                // TODO: dev value
+                                .accessTokenTimeToLive(Duration.ofDays(1))
+                                .refreshTokenTimeToLive(Duration.ofDays(7))
                                 .build())
                         .build()
         );
