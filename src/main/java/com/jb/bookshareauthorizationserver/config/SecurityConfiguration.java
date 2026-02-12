@@ -40,8 +40,10 @@ public class SecurityConfiguration {
                 .csrf(Customizer.withDefaults())
                 .cors(Customizer.withDefaults())
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
-                .with(authorizationServerConfigurer, authServer ->
-                        authServer.oidc(Customizer.withDefaults()))
+                .with(authorizationServerConfigurer, authServer -> {
+                            authServer.oidc(Customizer.withDefaults());
+                        }
+                )
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .exceptionHandling(exceptions -> exceptions
                         .defaultAuthenticationEntryPointFor(
@@ -93,7 +95,7 @@ public class SecurityConfiguration {
         var config = new CorsConfiguration();
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        config.addAllowedOrigin("http://127.0.0.1:3000");
+        config.addAllowedOrigin("http://localhost:3000");
         config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);
         return source;
